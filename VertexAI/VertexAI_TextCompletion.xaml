@@ -1,0 +1,346 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="VertexAI_TextCompletion" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ugia="clr-namespace:UiPath.GoogleVertex.IntegrationService.Activities;assembly=UiPath.GoogleVertex.IntegrationService.Activities" xmlns:ugic="clr-namespace:UiPath.GoogleVertex.IntegrationService.Client;assembly=UiPath.GoogleVertex.IntegrationService" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uibi="http://schemas.uipath.com/workflow/infrastructure/baf/uibi" xmlns:uiisi="http://schemas.uipath.com/workflow/infrastructure/is/uiisi" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_Response" Type="OutArgument(x:String)" />
+    <x:Property Name="in_ContextDictionary" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_ParameterDictionary" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Prompt" Type="InArgument(x:String)" />
+    <x:Property Name="in_RetryInterval" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_MaxAttempts" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_Model" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:VertexAI_TextCompletion.in_ParameterDictionary>
+    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+  </this:VertexAI_TextCompletion.in_ParameterDictionary>
+  <this:VertexAI_TextCompletion.in_RetryInterval>
+    <InArgument x:TypeArguments="x:TimeSpan" />
+  </this:VertexAI_TextCompletion.in_RetryInterval>
+  <this:VertexAI_TextCompletion.in_MaxAttempts>
+    <InArgument x:TypeArguments="x:Int32" />
+  </this:VertexAI_TextCompletion.in_MaxAttempts>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>560,1363</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>VertexAI_TextCompletion_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>UiPath.BAF.Infrastructure.Entity</x:String>
+      <x:String>UiPath.IntegrationService.Infrastructure.Descriptor</x:String>
+      <x:String>UiPath.BAF.Infrastructure.Enums</x:String>
+      <x:String>UiPath.BAF.Infrastructure.Telemetry</x:String>
+      <x:String>UiPath.BAF.Infrastructure</x:String>
+      <x:String>UiPath.BAF.Infrastructure.Connection</x:String>
+      <x:String>UiPath.OpenAI.IntegrationService.Activities</x:String>
+      <x:String>UiPath.IntegrationCore.Activities</x:String>
+      <x:String>UiPath.BAF.Activities</x:String>
+      <x:String>UiPath.BAF.Infrastructure.Contracts</x:String>
+      <x:String>UiPath.GoogleVertex.IntegrationService.Activities</x:String>
+      <x:String>UiPath.GoogleVertex.IntegrationService.Client</x:String>
+      <x:String>UiPath.GoogleVertex.IntegrationService.Client</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.BAF.Infrastructure</AssemblyReference>
+      <AssemblyReference>UiPath.IntegrationService.Infrastructure</AssemblyReference>
+      <AssemblyReference>UiPath.OpenAI.IntegrationService.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.MicrosoftAzureOpenAI.IntegrationService.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.GoogleVertex.IntegrationService.Activities</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>UiPath.GoogleVertex.IntegrationService</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Creating an VertexAI text completion call based off of provided prompt, context, and parameters." DisplayName="VertexAI_TextCompletion" sap:VirtualizedContainerService.HintSize="570,1298" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="ugic:Textcompletion" Name="response" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log &quot;Vertex AI Text Completion&quot;" sap:VirtualizedContainerService.HintSize="508,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[in_Config(&quot;LogMessage_VertexAITextCompletion&quot;).ToString + Environment.NewLine + in_Config(&quot;logKey&quot;).ToString]" />
+    <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each - Key in Context Dictionary, Replace in Prompt" sap:VirtualizedContainerService.HintSize="508,478" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_ContextDictionary.Keys]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="x:String">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:String" Name="key" />
+          </ActivityAction.Argument>
+          <TryCatch DisplayName="Try Catch - Replace Context Keys" sap:VirtualizedContainerService.HintSize="472,352" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+            <TryCatch.Try>
+              <Assign sap2010:Annotation.AnnotationText="Expecting a prompt to contain the keys to replace to insert context value into. If this fails, the prompt may be invalid. " DisplayName="Assign - Prompt" sap:VirtualizedContainerService.HintSize="434,124" sap2010:WorkflowViewState.IdRef="Assign_1">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[in_Prompt]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[in_Prompt.Replace("{"+key+"}",in_ContextDictionary(key).ToString)]</InArgument>
+                </Assign.Value>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </Assign>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="438,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Exception Replacing Context Keys" sap:VirtualizedContainerService.HintSize="450,268" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:LogMessage DisplayName="Log Message - Exception Replacing Context Keys" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[String.Format(in_Config(&quot;ExceptionMessage_ContextKeyReplacementFailure&quot;).ToString,key,exception.Message,exception.Source)]" />
+                    <Rethrow DisplayName="Rethrow - Exception Replacing Context Keys" sap:VirtualizedContainerService.HintSize="388,25" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+        </ActivityAction>
+      </ui:ForEach.Body>
+    </ui:ForEach>
+    <ui:RetryScope DisplayName="Retry Vertex AI - Text Completion" sap:VirtualizedContainerService.HintSize="508,327" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[in_MaxAttempts]" RetryInterval="[in_RetryInterval]">
+      <ui:RetryScope.ActivityBody>
+        <ActivityAction>
+          <ugia:GenerateTextCompletion ActivityInstanceId="07503719-0c79-4c40-9515-8878b164b594" BindingsVersion="2.1" BusinessEntityName="Textcompletion" ConfiguredBusinessEntity="textcompletion" ConnectionId="3a23cece-767e-4749-b811-ba4988040d7e" Connector="uipath-google-vertex" CrudOperation="Create" DesignConnectionEnabled="True" DisplayName="Vertex AI - Generate Text Completion" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="GenerateTextCompletion_2">
+            <ugia:GenerateTextCompletion.BusinessEntity>
+              <uibi:BusinessEntity Name="textcompletion">
+                <uibi:BusinessEntity.AllFields>
+                  <scg:List x:TypeArguments="uibi:EntityField" Capacity="8">
+                    <uiisi:OperationEntityField x:TypeArguments="ugic:Textcompletion" ArgumentDirection="In" ArgumentType="ugic:Textcompletion" DataType="Textcompletion" Description="The text prompt body" DisplayName="Body" FormDataType="ExpressionTextBox" IsChildEntityField="False" IsCustomField="False" IsDefault="False" IsDeletable="True" IsHidden="True" IsIdField="False" IsMandatory="True" IsParameter="True" IsPriority="False" IsSelected="False" Location="Undefined" Name="body" ShouldFilterOnChange="False" />
+                    <uiisi:OperationEntityField x:TypeArguments="ugic:Textcompletion" x:Name="__ReferenceID6" ArgumentDirection="Out" ArgumentType="ugic:Textcompletion" DataType="Textcompletion" Description="The Textcompletion object returned." DisplayName="Response" FormDataType="ExpressionTextBox" IsChildEntityField="False" IsCustomField="False" IsDefault="False" IsDeletable="True" IsHidden="False" IsIdField="False" IsMandatory="False" IsPriority="False" IsSelected="False" Location="Undefined" Name="Response" OutArgumentValue="[response]" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.ArgumentValue>
+                        <OutArgument x:TypeArguments="ugic:Textcompletion">[response]</OutArgument>
+                      </uiisi:OperationEntityField.ArgumentValue>
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsPermanentlyHidden">False</x:Boolean>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                      <uiisi:OperationEntityField.Value>
+                        <VisualBasicReference x:TypeArguments="ugic:Textcompletion">[response]</VisualBasicReference>
+                      </uiisi:OperationEntityField.Value>
+                    </uiisi:OperationEntityField>
+                    <uiisi:OperationEntityField x:TypeArguments="x:String" x:Name="__ReferenceID1" ArgumentDirection="In" ArgumentType="x:String" DataType="String" DefaultValue="Write an email to a new sales lead" Description="The prompt to use for the text completion(s) generation" DisplayName="Prompt" FormDataType="ExpressionTextBox" InArgumentValue="[in_Prompt]" IsChildEntityField="True" IsCustomField="False" IsDefault="False" IsDeletable="False" IsHidden="False" IsIdField="False" IsMandatory="True" IsPriority="False" IsSelected="False" Location="Undefined" Name="body.prompt" Order="1" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.ArgumentValue>
+                        <InArgument x:TypeArguments="x:String">[in_Prompt]</InArgument>
+                      </uiisi:OperationEntityField.ArgumentValue>
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <uiisi:CustomFieldsPriority x:Key="CustomFieldsPriority">Default</uiisi:CustomFieldsPriority>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                      <uiisi:OperationEntityField.Value>
+                        <VisualBasicValue x:TypeArguments="x:String">[in_Prompt]</VisualBasicValue>
+                      </uiisi:OperationEntityField.Value>
+                    </uiisi:OperationEntityField>
+                    <uiisi:OperationEntityField x:TypeArguments="s:Nullable(x:Int32)" x:Name="__ReferenceID2" ArgumentDirection="In" ArgumentType="s:Nullable(x:Int32)" DataType="Int32" DefaultValue="1024" Description="The maximum number of tokens allowed for the prompt and generated answer. Fewer tokens are less expensive. Most models support a maximum of 1024 tokens. Defaults to 1024." DisplayName="Max output tokens" FormDataType="ExpressionTextBox" InArgumentValue="[Cint(in_ParameterDictionary(&quot;VertexAIMaxOutputTokens&quot;))]" IsChildEntityField="True" IsCustomField="False" IsDefault="False" IsDeletable="False" IsHidden="False" IsIdField="False" IsMandatory="False" IsPriority="False" IsSelected="False" Location="Undefined" Name="body.maxOutputTokens" Order="3" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.ArgumentValue>
+                        <InArgument x:TypeArguments="s:Nullable(x:Int32)">[Cint(in_ParameterDictionary("VertexAIMaxOutputTokens"))]</InArgument>
+                      </uiisi:OperationEntityField.ArgumentValue>
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <uiisi:CustomFieldsPriority x:Key="CustomFieldsPriority">Default</uiisi:CustomFieldsPriority>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                      <uiisi:OperationEntityField.Value>
+                        <VisualBasicValue x:TypeArguments="s:Nullable(x:Int32)">[Cint(in_ParameterDictionary("VertexAIMaxOutputTokens"))]</VisualBasicValue>
+                      </uiisi:OperationEntityField.Value>
+                    </uiisi:OperationEntityField>
+                    <uiisi:OperationEntityField x:TypeArguments="s:Nullable(x:Double)" x:Name="__ReferenceID3" ArgumentDirection="In" ArgumentType="s:Nullable(x:Double)" DataType="Double" DefaultValue="0.8" Description="A number between 0 and 1.  Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. Defaults to 0.8." DisplayName="Temperature" FormDataType="ExpressionTextBox" InArgumentValue="[Cdbl(in_ParameterDictionary(&quot;VertexAITemperature&quot;))]" IsChildEntityField="True" IsCustomField="False" IsDefault="False" IsDeletable="False" IsHidden="False" IsIdField="False" IsMandatory="False" IsPriority="False" IsSelected="False" Location="Undefined" Name="body.temperature" Order="3" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.ArgumentValue>
+                        <InArgument x:TypeArguments="s:Nullable(x:Double)">[Cdbl(in_ParameterDictionary("VertexAITemperature"))]</InArgument>
+                      </uiisi:OperationEntityField.ArgumentValue>
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <uiisi:CustomFieldsPriority x:Key="CustomFieldsPriority">Default</uiisi:CustomFieldsPriority>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                      <uiisi:OperationEntityField.Value>
+                        <VisualBasicValue x:TypeArguments="s:Nullable(x:Double)">[Cdbl(in_ParameterDictionary("VertexAITemperature"))]</VisualBasicValue>
+                      </uiisi:OperationEntityField.Value>
+                    </uiisi:OperationEntityField>
+                    <uiisi:OperationEntityField x:TypeArguments="s:Nullable(x:Double)" x:Name="__ReferenceID4" ArgumentDirection="In" ArgumentType="s:Nullable(x:Double)" DataType="Double" DefaultValue="0.8" Description="A number between 0 and 1.  The lower the number, the lesser the randomness. Defaults to 0.8." DisplayName="Top p" FormDataType="ExpressionTextBox" InArgumentValue="[Cdbl(in_ParameterDictionary(&quot;VertexAITopP&quot;))]" IsChildEntityField="True" IsCustomField="False" IsDefault="False" IsDeletable="False" IsHidden="False" IsIdField="False" IsMandatory="False" IsPriority="False" IsSelected="False" Location="Undefined" Name="body.topP" Order="3" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.ArgumentValue>
+                        <InArgument x:TypeArguments="s:Nullable(x:Double)">[Cdbl(in_ParameterDictionary("VertexAITopP"))]</InArgument>
+                      </uiisi:OperationEntityField.ArgumentValue>
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <uiisi:CustomFieldsPriority x:Key="CustomFieldsPriority">Default</uiisi:CustomFieldsPriority>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                      <uiisi:OperationEntityField.Value>
+                        <VisualBasicValue x:TypeArguments="s:Nullable(x:Double)">[Cdbl(in_ParameterDictionary("VertexAITopP"))]</VisualBasicValue>
+                      </uiisi:OperationEntityField.Value>
+                    </uiisi:OperationEntityField>
+                    <uiisi:OperationEntityField x:TypeArguments="s:Nullable(x:Int32)" x:Name="__ReferenceID5" ArgumentDirection="In" ArgumentType="s:Nullable(x:Int32)" DataType="Int32" DefaultValue="40" Description="A number between 1 and 40.  The higher the number the higher the diversity of generated text. Defaults to 40." DisplayName="Top k" FormDataType="ExpressionTextBox" InArgumentValue="[Cint(in_ParameterDictionary(&quot;VertexAITopK&quot;))]" IsChildEntityField="True" IsCustomField="False" IsDefault="False" IsDeletable="False" IsHidden="False" IsIdField="False" IsMandatory="False" IsPriority="False" IsSelected="False" Location="Undefined" Name="body.topK" Order="3" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.ArgumentValue>
+                        <InArgument x:TypeArguments="s:Nullable(x:Int32)">[Cint(in_ParameterDictionary("VertexAITopK"))]</InArgument>
+                      </uiisi:OperationEntityField.ArgumentValue>
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <uiisi:CustomFieldsPriority x:Key="CustomFieldsPriority">Default</uiisi:CustomFieldsPriority>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                      <uiisi:OperationEntityField.Value>
+                        <VisualBasicValue x:TypeArguments="s:Nullable(x:Int32)">[Cint(in_ParameterDictionary("VertexAITopK"))]</VisualBasicValue>
+                      </uiisi:OperationEntityField.Value>
+                    </uiisi:OperationEntityField>
+                    <uiisi:OperationEntityField x:TypeArguments="x:String" x:Name="__ReferenceID7" ArgumentDirection="Out" ArgumentType="x:String" DataType="String" Description="The top generated text completion string" DisplayName="Text" FormDataType="ExpressionTextBox" IsChildEntityField="True" IsCustomField="False" IsDefault="False" IsDeletable="False" IsHidden="False" IsIdField="False" IsMandatory="False" IsPriority="False" IsSelected="False" Location="Undefined" Name="Response.text" ShouldFilterOnChange="False">
+                      <uiisi:OperationEntityField.Metadata>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <uiisi:CustomFieldsPriority x:Key="CustomFieldsPriority">Default</uiisi:CustomFieldsPriority>
+                        </scg:Dictionary>
+                      </uiisi:OperationEntityField.Metadata>
+                    </uiisi:OperationEntityField>
+                  </scg:List>
+                </uibi:BusinessEntity.AllFields>
+                <uibi:BusinessEntity.EntityMetadata>
+                  <uibi:EntityMetadata Metadata="{x:Reference __ReferenceID0}" DisplayName="Textcompletion" EligibleOperations="1" IsCustomEntity="False" Name="textcompletion" />
+                </uibi:BusinessEntity.EntityMetadata>
+                <uibi:BusinessEntity.Metadata>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object" x:Name="__ReferenceID0">
+                    <x:String x:Key="Object">textcompletion</x:String>
+                    <x:String x:Key="Client">UiPath.GoogleVertex.IntegrationService.Client.TextcompletionAPIClient</x:String>
+                    <x:String x:Key="Operation">CreateTextcompletion</x:String>
+                    <x:String x:Key="Path">/textcompletion</x:String>
+                  </scg:Dictionary>
+                </uibi:BusinessEntity.Metadata>
+                <uibi:BusinessEntity.SelectedFields>
+                  <scg:List x:TypeArguments="uibi:EntityField" Capacity="8">
+                    <x:Reference>__ReferenceID1</x:Reference>
+                    <x:Reference>__ReferenceID2</x:Reference>
+                    <x:Reference>__ReferenceID3</x:Reference>
+                    <x:Reference>__ReferenceID4</x:Reference>
+                    <x:Reference>__ReferenceID5</x:Reference>
+                    <x:Reference>__ReferenceID6</x:Reference>
+                    <x:Reference>__ReferenceID7</x:Reference>
+                  </scg:List>
+                </uibi:BusinessEntity.SelectedFields>
+                <uibi:BusinessEntity.TelemetryProperties>
+                  <scg:Dictionary x:TypeArguments="uibi:TelemetryGroup, scg:IDictionary(x:String, x:String)" />
+                </uibi:BusinessEntity.TelemetryProperties>
+              </uibi:BusinessEntity>
+            </ugia:GenerateTextCompletion.BusinessEntity>
+            <ugia:GenerateTextCompletion.CachedLookupValues>
+              <scg:Dictionary x:TypeArguments="x:String, scg:List(uiisi:LookupValue)" />
+            </ugia:GenerateTextCompletion.CachedLookupValues>
+            <ugia:GenerateTextCompletion.DesignConnectionRequest>
+              <uiisi:ConnectionParameters AuthType="ElementInstance" ConnectionId="3a23cece-767e-4749-b811-ba4988040d7e" ConnectionName="2023-06-27T15:28:40.985" ConnectorKey="uipath-google-vertex">
+                <uiisi:ConnectionParameters.TelemetryInfo>
+                  <uiisi:TelemetryInfo ActivityPack="UiPath.GoogleVertex.IntegrationService.Activities" ActivityPackVersion="5.0.0" Source="StudioDesktop" />
+                </uiisi:ConnectionParameters.TelemetryInfo>
+              </uiisi:ConnectionParameters>
+            </ugia:GenerateTextCompletion.DesignConnectionRequest>
+            <ugia:GenerateTextCompletion.SelectedFields>
+              <scg:List x:TypeArguments="uibi:EntityField" Capacity="7">
+                <x:Reference>__ReferenceID1</x:Reference>
+                <x:Reference>__ReferenceID2</x:Reference>
+                <x:Reference>__ReferenceID3</x:Reference>
+                <x:Reference>__ReferenceID4</x:Reference>
+                <x:Reference>__ReferenceID5</x:Reference>
+                <x:Reference>__ReferenceID6</x:Reference>
+                <x:Reference>__ReferenceID7</x:Reference>
+              </scg:List>
+            </ugia:GenerateTextCompletion.SelectedFields>
+            <ugia:GenerateTextCompletion.TelemetryProperties>
+              <scg:Dictionary x:TypeArguments="uibi:TelemetryGroup, scg:IDictionary(x:String, x:String)" />
+            </ugia:GenerateTextCompletion.TelemetryProperties>
+          </ugia:GenerateTextCompletion>
+        </ActivityAction>
+      </ui:RetryScope.ActivityBody>
+      <ui:RetryScope.Condition>
+        <ActivityFunc x:TypeArguments="x:Boolean" />
+      </ui:RetryScope.Condition>
+    </ui:RetryScope>
+    <Assign sap2010:Annotation.AnnotationText="Customize as necessary! &#xA;&#xA;Currently taking just the first prediction content. " DisplayName="Assign - Output" sap:VirtualizedContainerService.HintSize="508,139" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[out_Response]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[response.Predictions(0).Content]</InArgument>
+      </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </Assign>
+  </Sequence>
+</Activity>

@@ -1,0 +1,950 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="CreatePromptEngineeringAttendedForm" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:this="clr-namespace:" xmlns:ufa="clr-namespace:UiPath.Form.Activities;assembly=UiPath.Form.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Prompt" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="in_Provider" Type="InArgument(x:String)" />
+    <x:Property Name="in_ContextDictionary" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_AtLeastSecondPrompt" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_ParameterDictionary" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Response" Type="InArgument(x:String)" />
+    <x:Property Name="out_Dismissed" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="out_OutputDataJson" Type="OutArgument(x:String)" />
+    <x:Property Name="out_SelectedButton" Type="OutArgument(x:String)" />
+    <x:Property Name="in_UseQueue" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_PriorRunDictionaries" Type="InArgument(scg:List(scg:Dictionary(x:String, x:Object)))" />
+    <x:Property Name="in_Model" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:CreatePromptEngineeringAttendedForm.in_Prompt>
+    <InArgument x:TypeArguments="x:String" />
+  </this:CreatePromptEngineeringAttendedForm.in_Prompt>
+  <this:CreatePromptEngineeringAttendedForm.in_Config>
+    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+  </this:CreatePromptEngineeringAttendedForm.in_Config>
+  <this:CreatePromptEngineeringAttendedForm.in_TransactionItem>
+    <InArgument x:TypeArguments="ui:QueueItem" />
+  </this:CreatePromptEngineeringAttendedForm.in_TransactionItem>
+  <this:CreatePromptEngineeringAttendedForm.in_ContextDictionary>
+    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+  </this:CreatePromptEngineeringAttendedForm.in_ContextDictionary>
+  <this:CreatePromptEngineeringAttendedForm.in_Response>
+    <InArgument x:TypeArguments="x:String" />
+  </this:CreatePromptEngineeringAttendedForm.in_Response>
+  <this:CreatePromptEngineeringAttendedForm.in_PriorRunDictionaries>
+    <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:Object))" />
+  </this:CreatePromptEngineeringAttendedForm.in_PriorRunDictionaries>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>2987,4296</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>CreatePromptEngineeringAttendedForm_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="34">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Persistence.Activities.Model.Task</x:String>
+      <x:String>UiPath.Persistence.Activities.FormTask</x:String>
+      <x:String>UiPath.Persistence.Activities.BaseTask</x:String>
+      <x:String>UiPath.Persistence.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>UiPath.Form.Activities</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="53">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+      <AssemblyReference>System.Linq.Async.Queryable</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Form.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Persistence.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Create the prompt engineering form based off of all the parameters. " DisplayName="CreatePromptEngineeringAttendedForm" sap:VirtualizedContainerService.HintSize="687,4231" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="FormTitle" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="Providers" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))" Default="[new Dictionary(of String, List(of String))]" Name="ProviderModelDictionary" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_ContextDictionaryDataTable" />
+      <Variable x:TypeArguments="x:Double" Name="OpenAIPresencePenalty" />
+      <Variable x:TypeArguments="x:Double" Name="OpenAIFrequencyPenalty" />
+      <Variable x:TypeArguments="x:Double" Name="OpenAITemperature" />
+      <Variable x:TypeArguments="x:Double" Name="OpenAITopP" />
+      <Variable x:TypeArguments="x:Int32" Name="OpenAIMaxTokens" />
+      <Variable x:TypeArguments="x:Double" Name="AzureOpenAIPresencePenalty" />
+      <Variable x:TypeArguments="x:Double" Name="AzureOpenAIFrequencyPenalty" />
+      <Variable x:TypeArguments="x:Double" Name="AzureOpenAITemperature" />
+      <Variable x:TypeArguments="x:Double" Name="AzureOpenAITopP" />
+      <Variable x:TypeArguments="x:Int32" Name="AzureOpenAIMaxTokens" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dt_PriorRunsTable" />
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(Of String)]" Name="PriorRunNumberList" />
+      <Variable x:TypeArguments="x:Int32" Name="VertexAIMaxOutputTokens" />
+      <Variable x:TypeArguments="x:Int32" Name="VertexAITopK" />
+      <Variable x:TypeArguments="x:Double" Name="VertexAITopP" />
+      <Variable x:TypeArguments="x:Double" Name="VertexAITemperature" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message: &quot;Create Prompt Engineering Attended Form&quot;" sap:VirtualizedContainerService.HintSize="625,141" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[in_Config(&quot;LogMessage_CreatePromptEngineeringAttendedForm&quot;).ToString + Environment.NewLine + in_Config(&quot;logKey&quot;).ToString]" />
+    <Sequence DisplayName="Custom Logic" sap:VirtualizedContainerService.HintSize="625,3726" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="scg:List(x:String)" Name="OpenAIModels" />
+        <Variable x:TypeArguments="scg:List(x:String)" Name="AzureOpenAIModels" />
+        <Variable x:TypeArguments="scg:List(x:String)" Name="VertexAIModels" />
+        <Variable x:TypeArguments="x:Int32" Name="index" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:Comment DisplayName="Comment - Add data" sap:VirtualizedContainerService.HintSize="563,94" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//This sequence and the form below should be modified according to the specifics of the current usecase&#xA;" />
+      <ui:MultipleAssign sap2010:Annotation.AnnotationText="Default Values" DisplayName="Set Form Variables" sap:VirtualizedContainerService.HintSize="563,163" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+        <ui:MultipleAssign.AssignOperations>
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="16">
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[FormTitle]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[String.Format(in_Config("TaskFormTitle").ToString, if(in_UseQueue,in_TransactionItem.Reference,"Custom Context"), in_Provider)]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[providers]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[in_Config("ListOfGenerativeAIProviders").ToString.Split(","c).Select(Function(value) value.Trim).ToList]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+          </scg:List>
+        </ui:MultipleAssign.AssignOperations>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:MultipleAssign>
+      <Sequence DisplayName="Create Context Dictionary" sap:VirtualizedContainerService.HintSize="563,523" sap2010:WorkflowViewState.IdRef="Sequence_12">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:BuildDataTable DataTable="[dt_ContextDictionaryDataTable]" DisplayName="Build Data Table - Key Value Table" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Key&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Value&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+        <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each - Key in Dictionary add to DataTable" sap:VirtualizedContainerService.HintSize="434,312" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_ContextDictionary.Keys]">
+          <ui:ForEach.Body>
+            <ActivityAction x:TypeArguments="x:String">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:String" Name="key" />
+              </ActivityAction.Argument>
+              <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{key,in_ContextDictionary(key).ToString}]" DataTable="[dt_ContextDictionaryDataTable]" DisplayName="Add Data Row - keyValueDataTable" sap:VirtualizedContainerService.HintSize="334,186" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+            </ActivityAction>
+          </ui:ForEach.Body>
+        </ui:ForEach>
+      </Sequence>
+      <ui:MultipleAssign DisplayName="Set Model List Variables" sap:VirtualizedContainerService.HintSize="563,256" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+        <ui:MultipleAssign.AssignOperations>
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[OpenAIModels]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[in_Config("OpenAIModels").ToString.Split(","c).Select(Function(value) value.Trim).ToList]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[AzureOpenAIModels]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[in_Config("AzureOpenAIModels").ToString.Split(","c).Select(Function(value) value.Trim).ToList]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_17">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[VertexAIModels]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[in_Config("VertexAIModels").ToString.Split(","c).Select(Function(value) value.Trim).ToList]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[providerModelDictionary("OpenAI")]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[OpenAIModels]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[providerModelDictionary("AzureOpenAI")]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[AzureOpenAIModels]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_18">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[providerModelDictionary("VertexAI")]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[VertexAIModels]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+          </scg:List>
+        </ui:MultipleAssign.AssignOperations>
+      </ui:MultipleAssign>
+      <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="By default, for each Provider we assign the Current Parameters as the existing Parameters. For the other Providers, we assign the default values. &#xD;&#xA;&#xD;&#xA;The assignment of the other parameters are inside each switch case for the ability to modify per provider if desired." DisplayName="Switch - Current Model Provider" Expression="[in_Provider]" sap:VirtualizedContainerService.HintSize="563,1194" sap2010:WorkflowViewState.IdRef="Switch`1_3">
+        <Switch.Default>
+          <ui:Comment DisplayName="Comment - Default Current Provider" sap:VirtualizedContainerService.HintSize="334,75" sap2010:WorkflowViewState.IdRef="Comment_3" Text="Should never reach the default! Throw an exception if desired" />
+        </Switch.Default>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence x:Key="OpenAI" DisplayName="OpenAI Current Provider" sap:VirtualizedContainerService.HintSize="493,877" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:MultipleAssign sap2010:Annotation.AnnotationText="The Current Provider Dictionary should have the required keys to fill in the Open AI current provider" DisplayName="MultipleAssign - OpenAI Current Parameters" sap:VirtualizedContainerService.HintSize="431,267" sap2010:WorkflowViewState.IdRef="MultipleAssign_6">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_22">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAIFrequencyPenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("OpenAIFrequencyPenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_23">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAIPresencePenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("OpenAIPresencePenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_24">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("OpenAITopP"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_25">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("OpenAITemperature"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_26">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[OpenAIMaxTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[Cint(in_ParameterDictionary("OpenAIMaxTokens"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MultipleAssign>
+          <ui:MultipleAssign DisplayName="AzureOpenAI Parameters Default To Config, Current Is OpenAI" sap:VirtualizedContainerService.HintSize="431,225" sap2010:WorkflowViewState.IdRef="MultipleAssign_7">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_27">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAIFrequencyPenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultFrequencyPenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_28">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAIPresencePenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultPresencePenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_29">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultTopP"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_30">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultTemperature"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_31">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[AzureOpenAIMaxTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[Cint(in_Config("AzureOpenAIDefaultMaxTokens"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+          </ui:MultipleAssign>
+          <ui:MultipleAssign DisplayName="Vertex AI Parameters default to config, Current Is OpenAI" sap:VirtualizedContainerService.HintSize="431,194" sap2010:WorkflowViewState.IdRef="MultipleAssign_19">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_85">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[VertexAIMaxOutputTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(in_Config("VertexAIDefaultMaxOutputTokens").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_86">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[VertexAITopK]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(in_Config("VertexAIDefaultTopK").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_87">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[VertexAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[CDbl(in_Config("VertexAIDefaultTopP").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_88">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[VertexAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[CDbl(in_Config("VertexAIDefaultTemperature").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MultipleAssign>
+        </Sequence>
+        <Sequence x:Key="AzureOpenAI" DisplayName="AzureOpenAI Current Provider" sap:VirtualizedContainerService.HintSize="493,877" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:MultipleAssign sap2010:Annotation.AnnotationText="The Current Provider Dictionary should have the required keys to fill in the AzureOpen AI current provider" DisplayName="AzureOpenAI Current Parameters" sap:VirtualizedContainerService.HintSize="431,267" sap2010:WorkflowViewState.IdRef="MultipleAssign_8">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_32">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAIFrequencyPenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("AzureOpenAIFrequencyPenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_33">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAIPresencePenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("AzureOpenAIPresencePenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_34">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("AzureOpenAITopP"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_35">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_ParameterDictionary("AzureOpenAITemperature"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_36">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[AzureOpenAIMaxTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[Cint(in_ParameterDictionary("AzureOpenAIMaxTokens"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MultipleAssign>
+          <ui:MultipleAssign DisplayName="OpenAI Parameters default to config, current is AzureOpenAI" sap:VirtualizedContainerService.HintSize="431,225" sap2010:WorkflowViewState.IdRef="MultipleAssign_9">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_37">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAIFrequencyPenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultFrequencyPenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_38">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAIPresencePenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultPresencePenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_39">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultTopP"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_40">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultTemperature"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_41">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[OpenAIMaxTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[Cint(in_Config("OpenAIDefaultMaxTokens"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+          </ui:MultipleAssign>
+          <ui:MultipleAssign DisplayName="Vertex AI Parameters default to config, current is AzureOpenAI" sap:VirtualizedContainerService.HintSize="431,194" sap2010:WorkflowViewState.IdRef="MultipleAssign_18">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_81">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[VertexAIMaxOutputTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(in_Config("VertexAIDefaultMaxOutputTokens").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_82">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[VertexAITopK]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(in_Config("VertexAIDefaultTopK").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_83">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[VertexAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[CDbl(in_Config("VertexAIDefaultTopP").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_84">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[VertexAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[CDbl(in_Config("VertexAIDefaultTemperature").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MultipleAssign>
+        </Sequence>
+        <Sequence x:Key="VertexAI" DisplayName="VertexAI Current Provider" sap:VirtualizedContainerService.HintSize="493,877" sap2010:WorkflowViewState.IdRef="Sequence_16">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:MultipleAssign sap2010:Annotation.AnnotationText="The Current Provider Dictionary should have the required keys to fill in the Vertex AI current provider" DisplayName="Vertex AI Current Parameters" sap:VirtualizedContainerService.HintSize="431,236" sap2010:WorkflowViewState.IdRef="MultipleAssign_22">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_99">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[VertexAIMaxOutputTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(in_ParameterDictionary("VertexAIMaxOutputTokens").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_100">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[VertexAITopK]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(in_ParameterDictionary("VertexAITopK").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_101">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[VertexAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[CDbl(in_ParameterDictionary("VertexAITopP").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_102">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[VertexAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[CDbl(in_ParameterDictionary("VertexAITemperature").ToString)]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MultipleAssign>
+          <ui:MultipleAssign DisplayName="AzureOpenAI Parameters Default To Config, Current Is VertexAI" sap:VirtualizedContainerService.HintSize="431,225" sap2010:WorkflowViewState.IdRef="MultipleAssign_23">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_103">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAIFrequencyPenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultFrequencyPenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_104">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAIPresencePenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultPresencePenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_105">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultTopP"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_106">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[AzureOpenAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("AzureOpenAIDefaultTemperature"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_107">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[AzureOpenAIMaxTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[Cint(in_Config("AzureOpenAIDefaultMaxTokens"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+          </ui:MultipleAssign>
+          <ui:MultipleAssign DisplayName="OpenAI Parameters default to config, current is VertexAI" sap:VirtualizedContainerService.HintSize="431,225" sap2010:WorkflowViewState.IdRef="MultipleAssign_21">
+            <ui:MultipleAssign.AssignOperations>
+              <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_94">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAIFrequencyPenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultFrequencyPenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_95">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAIPresencePenalty]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultPresencePenalty"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_96">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAITopP]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultTopP"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_97">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Double">[OpenAITemperature]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Double">[Cdbl(in_Config("OpenAIDefaultTemperature"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+                <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_98">
+                  <ui:AssignOperation.To>
+                    <OutArgument x:TypeArguments="x:Int32">[OpenAIMaxTokens]</OutArgument>
+                  </ui:AssignOperation.To>
+                  <ui:AssignOperation.Value>
+                    <InArgument x:TypeArguments="x:Int32">[Cint(in_Config("OpenAIDefaultMaxTokens"))]</InArgument>
+                  </ui:AssignOperation.Value>
+                </ui:AssignOperation>
+              </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+          </ui:MultipleAssign>
+        </Sequence>
+      </Switch>
+      <ui:BuildDataTable DataTable="[dt_PriorRunsTable]" DisplayName="Build Data Table - Prior Runs Table" sap:VirtualizedContainerService.HintSize="563,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Response&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Prompt&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Parameters&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <If Condition="[in_AtLeastSecondPrompt]" DisplayName="If - At Least Second Prompt" sap:VirtualizedContainerService.HintSize="563,1085" sap2010:WorkflowViewState.IdRef="If_2">
+        <If.Then>
+          <ui:ForEach x:TypeArguments="scg:Dictionary(x:String, x:Object)" CurrentIndex="[index]" DisplayName="For Each - Item in Prior Runs Dictionary" sap:VirtualizedContainerService.HintSize="529,903" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[in_PriorRunDictionaries]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:Object)">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="priorRunDictionary" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="493,779" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sd:DataRow" Name="PriorRunRow" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:MultipleAssign sap2010:Annotation.AnnotationText="Putting all the data inside columns for displaying within the form. &#xA;&#xA;Joining all keys besides Prompt and Response to put within the &quot;Other Parameter&quot; field." DisplayName="Multiple Assign - Prior Runs Table" sap:VirtualizedContainerService.HintSize="431,266" sap2010:WorkflowViewState.IdRef="MultipleAssign_17">
+                    <ui:MultipleAssign.AssignOperations>
+                      <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_77">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="sd:DataRow">[PriorRunRow]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="sd:DataRow">[dt_PriorRunsTable.NewRow]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_78">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:Object">[PriorRunRow("Prompt")]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:Object">[if((priorRunDictionary("Prompt") Is Nothing), String.Empty, priorRunDictionary("Prompt").ToString)]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_79">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:Object">[PriorRunRow("Response")]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:Object">[if(priorRunDictionary("Response") Is Nothing, String.Empty ,priorRunDictionary("Response").ToString)]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                        <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_80">
+                          <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:Object">[PriorRunRow("Parameters")]</OutArgument>
+                          </ui:AssignOperation.To>
+                          <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:Object">[String.Join(Environment.NewLine+Environment.NewLine, PriorRunDictionary.Where(Function(dict) Not dict.Key.Equals("Prompt") AndAlso Not dict.Key.Equals("Response")).Select(Function(kv) String.Format("{0} : {1}", kv.Key, if(kv.Value.ToString Is Nothing, String.Empty, kv.Value.ToString))).ToArray())]</InArgument>
+                          </ui:AssignOperation.Value>
+                        </ui:AssignOperation>
+                      </scg:List>
+                    </ui:MultipleAssign.AssignOperations>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:MultipleAssign>
+                  <InvokeMethod DisplayName="Add New Dropdown Number " sap:VirtualizedContainerService.HintSize="431,136" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Add">
+                    <InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="scg:List(x:String)">[PriorRunNumberList]</InArgument>
+                    </InvokeMethod.TargetObject>
+                    <InArgument x:TypeArguments="x:String">[(index+1).ToString]</InArgument>
+                  </InvokeMethod>
+                  <ui:AddDataRow ArrayRow="{x:Null}" DataRow="[PriorRunRow]" DataTable="[dt_PriorRunsTable]" DisplayName="Add Data Row - Prior Runs Table" sap:VirtualizedContainerService.HintSize="431,186" sap2010:WorkflowViewState.IdRef="AddDataRow_2" />
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ForEach>
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_15" />
+        </If.Else>
+      </If>
+    </Sequence>
+    <ufa:FormActivity CreateFormActivityFileName="{x:Null}" CreateFormActivityFilePath="{x:Null}" FormFieldsInputData="{x:Null}" IconPath="{x:Null}" LocalCSSFilePath="{x:Null}" TimeoutInSeconds="{x:Null}" WindowPositionLeft="{x:Null}" WindowPositionTop="{x:Null}" CreateFormId="10d7aa6b-983b-496b-8a96-e05781da174d" DevTools="False" DisableMaximizeButton="False" DisableMinimizeButton="False" DisableSanitize="True" Dismissed="[out_Dismissed]" DisplayName="Create Form - Prompt Engineering Form" EnableAccessibility="False" FormFieldsOutputData="[out_OutputDataJson]" FormHeight="650" FormSchema="%[{&quot;title&quot;:&quot;Response&quot;,&quot;theme&quot;:&quot;info&quot;,&quot;collapsible&quot;:true,&quot;key&quot;:&quot;specificRequestFields&quot;,&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;Response&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Context Keys and Values&quot;,&quot;description&quot;:&quot;The Context Provided to the Prompt&quot;,&quot;disableAddingRemovingRows&quot;:true,&quot;reorder&quot;:false,&quot;addAnotherPosition&quot;:&quot;bottom&quot;,&quot;layoutFixed&quot;:false,&quot;enableRowGroups&quot;:false,&quot;initEmpty&quot;:false,&quot;key&quot;:&quot;Context&quot;,&quot;type&quot;:&quot;datagrid&quot;,&quot;input&quot;:true,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Key&quot;,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;Key&quot;,&quot;type&quot;:&quot;textfield&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Value&quot;,&quot;showWordCount&quot;:true,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;Value&quot;,&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;autoExpand&quot;:false,&quot;hideOnChildrenHidden&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;}],&quot;key&quot;:&quot;columns&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;&quot;}],&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Response&quot;,&quot;description&quot;:&quot;The top generated chat completion response.&quot;,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;Response&quot;,&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false},{&quot;label&quot;:&quot;Copy to Clipboard&quot;,&quot;action&quot;:&quot;custom&quot;,&quot;theme&quot;:&quot;secondary&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;copyToClipboard&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;CopyLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;copyToClipboard&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;CopyAction&quot;,&quot;type&quot;:&quot;customAction&quot;,&quot;customAction&quot;:&quot;navigator.clipboard.writeText(data.Response);&quot;},{&quot;name&quot;:&quot;CopyLabelChange&quot;,&quot;type&quot;:&quot;property&quot;,&quot;schemaDefinition&quot;:&quot;return { Label: \&quot;Copied!\&quot; }&quot;,&quot;value&quot;:&quot;return \&quot;HELLO\&quot;&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Label&quot;,&quot;value&quot;:&quot;label&quot;,&quot;type&quot;:&quot;string&quot;},&quot;text&quot;:&quot;Copied!&quot;}]}],&quot;custom&quot;:&quot;instance.emit('copyToClipboard', {});&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;showUpdateData&quot;:true,&quot;allowMultipleClicksWhileDoBlock&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;}],&quot;key&quot;:&quot;columns&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}],&quot;collapsed&quot;:false,&quot;keyModified&quot;:true},{&quot;title&quot;:&quot;Prompt&quot;,&quot;theme&quot;:&quot;info&quot;,&quot;collapsible&quot;:true,&quot;key&quot;:&quot;promptPanel&quot;,&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;Prompt&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;collapsed&quot;:true,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Prompt&quot;,&quot;description&quot;:&quot;The prompt used for the generation of the chat completion. The response for this prompt is provided in the response area. The context was inserted using Key-Value pairing.&quot;,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;Prompt&quot;,&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Reengineered Prompt&quot;,&quot;description&quot;:&quot;The prompt you want to use for the regeneration of the chat completion. The regineered prompt must include the keys provided by the context&quot;,&quot;tableView&quot;:true,&quot;key&quot;:&quot;ReengineeredPrompt&quot;,&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Make Default Prompt&quot;,&quot;description&quot;:&quot;For future runs, the Current Prompt or Reengineered Prompt currently set will be saved.&quot;,&quot;tableView&quot;:false,&quot;defaultValue&quot;:true,&quot;key&quot;:&quot;MakeDefaultPrompt&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:8,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;}],&quot;key&quot;:&quot;columns3&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;}],&quot;key&quot;:&quot;columns2&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}],&quot;keyModified&quot;:true},{&quot;title&quot;:&quot;Generative AI Parameters&quot;,&quot;theme&quot;:&quot;info&quot;,&quot;collapsible&quot;:true,&quot;key&quot;:&quot;parameterFields&quot;,&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;Generative AI Parameters&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Generative AI Provider&quot;,&quot;widget&quot;:&quot;choicesjs&quot;,&quot;description&quot;:&quot;Original Provider This Run: {{data.OriginalProvider}}&quot;,&quot;tableView&quot;:true,&quot;data&quot;:{&quot;values&quot;:[{&quot;value&quot;:&quot;&quot;,&quot;label&quot;:&quot;&quot;}]},&quot;validate&quot;:{&quot;onlyAvailableItems&quot;:false},&quot;key&quot;:&quot;Provider&quot;,&quot;type&quot;:&quot;select&quot;,&quot;indexeddb&quot;:{&quot;filter&quot;:{}},&quot;input&quot;:true,&quot;keyModified&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Generative AI Model&quot;,&quot;widget&quot;:&quot;choicesjs&quot;,&quot;description&quot;:&quot;Original Model This Run: {{data.OriginalModel}}&quot;,&quot;tableView&quot;:true,&quot;data&quot;:{&quot;values&quot;:[{&quot;value&quot;:&quot;&quot;,&quot;label&quot;:&quot;&quot;}]},&quot;validate&quot;:{&quot;onlyAvailableItems&quot;:false},&quot;key&quot;:&quot;Model&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ModelLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;return true;&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ModelSchemaAction&quot;,&quot;type&quot;:&quot;mergeComponentSchema&quot;,&quot;schemaDefinition&quot;:&quot;schema = {data : {values : data.Model_parent[data.Provider]}}&quot;}]}],&quot;type&quot;:&quot;select&quot;,&quot;indexeddb&quot;:{&quot;filter&quot;:{}},&quot;refreshOn&quot;:&quot;Provider&quot;,&quot;input&quot;:true,&quot;keyModified&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4},{&quot;components&quot;:[{&quot;label&quot;:&quot;Make Default Parameters&quot;,&quot;description&quot;:&quot;For future runs outside this context grouping, the Generative AI Parameters currently set will be saved.&quot;,&quot;tableView&quot;:false,&quot;defaultValue&quot;:false,&quot;key&quot;:&quot;MakeDefaultParameters&quot;,&quot;type&quot;:&quot;checkbox&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false},{&quot;label&quot;:&quot;Reset Parameters&quot;,&quot;action&quot;:&quot;event&quot;,&quot;size&quot;:&quot;sm&quot;,&quot;tooltip&quot;:&quot;Resets to the values input for the current Provider.&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;ResetParameters&quot;,&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;event&quot;:&quot;ResetParameters&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;hideOnChildrenHidden&quot;:false}],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;columns5&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;title&quot;:&quot;Open AI&quot;,&quot;collapsible&quot;:false,&quot;hidden&quot;:true,&quot;hideLabel&quot;:true,&quot;key&quot;:&quot;OpenAIPanel&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;OpenAIPanelLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;simple&quot;,&quot;simple&quot;:{&quot;show&quot;:true,&quot;when&quot;:&quot;Provider&quot;,&quot;eq&quot;:&quot;OpenAI&quot;}},&quot;actions&quot;:[{&quot;name&quot;:&quot;OpenAIPanelAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Hidden&quot;,&quot;value&quot;:&quot;hidden&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:false}]}],&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;Panel&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Open AI Presence Penalty&quot;,&quot;description&quot;:&quot;A number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model’s likelihood to talk about new topics.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:-2,&quot;max&quot;:2},&quot;key&quot;:&quot;OpenAIPresencePenalty&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalOpenAIPresencePenalty;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Open AI Frequency Penalty&quot;,&quot;description&quot;:&quot;Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model’s likelihood to repeat the same line verbatim.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:-2,&quot;max&quot;:2},&quot;key&quot;:&quot;OpenAIFrequencyPenalty&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalOpenAIFrequencyPenalty;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4},{&quot;components&quot;:[{&quot;label&quot;:&quot;Open AI Top P&quot;,&quot;description&quot;:&quot;A number between 0 and 1. The lower the number, the fewer tokens are considered.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:1},&quot;key&quot;:&quot;OpenAITopP&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalOpenAITopP;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;pull&quot;:0,&quot;push&quot;:0}],&quot;key&quot;:&quot;columns6&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Open AI Max Tokens&quot;,&quot;description&quot;:&quot;The maximum number of tokens allowed for the prompt and generated answer. Fewer tokens are less expensive. Most models support a maximum of 4096 tokens, however, some models support only 2048.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:4096},&quot;key&quot;:&quot;OpenAIMaxTokens&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalOpenAIMaxTokens;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:0,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;keyModified&quot;:true,&quot;clearOnHide&quot;:false}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Open AI Temperature&quot;,&quot;description&quot;:&quot;A number between 0 and 2. Higher values like 0.8 make the output more random, while lower values like 0.2 make it more focused and deterministic.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:2},&quot;key&quot;:&quot;OpenAITemperature&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalOpenAITemperature;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;columns10&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}],&quot;persistent&quot;:true,&quot;keyModified&quot;:true},{&quot;title&quot;:&quot;AzureOpenAIPanel&quot;,&quot;collapsible&quot;:false,&quot;hidden&quot;:true,&quot;hideLabel&quot;:true,&quot;key&quot;:&quot;AzureOpenAIPanel&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;AzureOpenAIPanelLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;simple&quot;,&quot;simple&quot;:{&quot;show&quot;:true,&quot;when&quot;:&quot;Provider&quot;,&quot;eq&quot;:&quot;AzureOpenAI&quot;}},&quot;actions&quot;:[{&quot;name&quot;:&quot;AzureOpenAIPanelAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Hidden&quot;,&quot;value&quot;:&quot;hidden&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:false}]}],&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;Panel&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Azure Open AI Presence Penalty&quot;,&quot;description&quot;:&quot;A number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model’s likelihood to talk about new topics.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:-2,&quot;max&quot;:2},&quot;key&quot;:&quot;AzureOpenAIPresencePenalty&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalAzureOpenAIPresencePenalty;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Azure Open AI Frequency Penalty&quot;,&quot;description&quot;:&quot;Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model’s likelihood to repeat the same line verbatim.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:-2,&quot;max&quot;:2},&quot;key&quot;:&quot;AzureOpenAIFrequencyPenalty&quot;,&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalAzureOpenAIFrequencyPenalty;&quot;}]}]}],&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4},{&quot;components&quot;:[{&quot;label&quot;:&quot;Azure Open AI Top P&quot;,&quot;description&quot;:&quot;A number between 0 and 1. The lower the number, the fewer tokens are considered.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:1},&quot;key&quot;:&quot;AzureOpenAITopP&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalAzureOpenAITopP;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;pull&quot;:0,&quot;push&quot;:0}],&quot;key&quot;:&quot;columns12&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Azure Open AI Max Tokens&quot;,&quot;description&quot;:&quot;The maximum number of tokens allowed for the prompt and generated answer. Fewer tokens are less expensive. Most models support a maximum of 4096 tokens, however, some models support only 2048.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:4096},&quot;key&quot;:&quot;AzureOpenAIMaxTokens&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalAzureOpenAIMaxTokens;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:0,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Azure Open AI Temperature&quot;,&quot;description&quot;:&quot;A number between 0 and 2. Higher values like 0.8 make the output more random, while lower values like 0.2 make it more focused and deterministic.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:2},&quot;key&quot;:&quot;AzureOpenAITemperature&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalAzureOpenAITemperature;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;columns13&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}]},{&quot;title&quot;:&quot;VertexAIPanel&quot;,&quot;collapsible&quot;:false,&quot;hidden&quot;:true,&quot;hideLabel&quot;:true,&quot;key&quot;:&quot;VertexAIPanel&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;VertexAIPanelLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;simple&quot;,&quot;simple&quot;:{&quot;show&quot;:true,&quot;when&quot;:&quot;Provider&quot;,&quot;eq&quot;:&quot;VertexAI&quot;}},&quot;actions&quot;:[{&quot;name&quot;:&quot;VertexAIPanelAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Hidden&quot;,&quot;value&quot;:&quot;hidden&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:false}]}],&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;AzureOpenAIPanel&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Vertex AI Top P&quot;,&quot;description&quot;:&quot;A number between 0 and 1. The lower the number, the lesser the randomness of the result.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:1},&quot;key&quot;:&quot;VertexAITopP&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalVertexAITopP;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Vertex AI Top K&quot;,&quot;description&quot;:&quot;A number between 1 and 40. The higher the number, the higher the diversity of generated text.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:1,&quot;max&quot;:40},&quot;key&quot;:&quot;VertexAITopK&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalVertexAITopK;&quot;}],&quot;isRowSelected&quot;:true}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:0,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4},{&quot;components&quot;:[],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;pull&quot;:0,&quot;push&quot;:0}],&quot;key&quot;:&quot;columns14&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Vertex AI Max Output Tokens&quot;,&quot;description&quot;:&quot;The maximum number of tokens allowed for the prompt and generated answer. Fewer tokens are less expensive. Most models support a maximum of 1024 tokens.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:1024},&quot;key&quot;:&quot;VertexAIMaxOutputTokens&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalVertexAIMaxOutputTokens;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:0,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Vertex AI Temperature&quot;,&quot;description&quot;:&quot;A number between 0 and 1. Higher values like 0.8 make the output more random, while lower values like 0.2 make it more focused and deterministic.&quot;,&quot;tableView&quot;:false,&quot;delimiter&quot;:false,&quot;requireDecimal&quot;:false,&quot;validate&quot;:{&quot;min&quot;:0,&quot;max&quot;:1},&quot;key&quot;:&quot;VertexAITemperature&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResetParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;event&quot;,&quot;event&quot;:&quot;ResetParameters&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResetParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.OriginalVertexAITemperature;&quot;}]}],&quot;type&quot;:&quot;number&quot;,&quot;decimalLimit&quot;:3,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false,&quot;clearOnHide&quot;:false,&quot;keyModified&quot;:true}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;columns16&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}]}],&quot;collapsed&quot;:true,&quot;persistent&quot;:true,&quot;keyModified&quot;:true},{&quot;title&quot;:&quot;Prior Runs&quot;,&quot;theme&quot;:&quot;info&quot;,&quot;collapsible&quot;:true,&quot;hidden&quot;:true,&quot;key&quot;:&quot;PriorRunsPanel&quot;,&quot;conditional&quot;:{&quot;show&quot;:true,&quot;when&quot;:&quot;SecondPrompt&quot;,&quot;eq&quot;:&quot;true&quot;},&quot;type&quot;:&quot;panel&quot;,&quot;label&quot;:&quot;Prior Runs&quot;,&quot;persistent&quot;:true,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;components&quot;:[{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Prior Run Number&quot;,&quot;description&quot;:&quot;Where 1 Is The Last Prior Run&quot;,&quot;tableView&quot;:true,&quot;data&quot;:{&quot;values&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;}]},&quot;validate&quot;:{&quot;onlyAvailableItems&quot;:false},&quot;key&quot;:&quot;PriorRunNumber&quot;,&quot;type&quot;:&quot;select&quot;,&quot;indexeddb&quot;:{&quot;filter&quot;:{}},&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;PriorRunsPanelColumn&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Prompt&quot;,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;PriorPrompt&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;PromptLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result=data.SecondPrompt;&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;PromptAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.PriorRunsTable[data.PriorRunNumber-1][\&quot;Prompt\&quot;];&quot;}],&quot;isRowSelected&quot;:true}],&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Response&quot;,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;PriorResponse&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;ResponseLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result=data.SecondPrompt;&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;ResponseAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.PriorRunsTable[data.PriorRunNumber-1][\&quot;Response\&quot;];&quot;}],&quot;isRowSelected&quot;:true}],&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:6,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;}],&quot;key&quot;:&quot;columns4&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Other Parameters&quot;,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;otherParameters&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;OtherParametersLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result=data.SecondPrompt;&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;OtherParametersAction&quot;,&quot;type&quot;:&quot;value&quot;,&quot;value&quot;:&quot;return data.PriorRunsTable[data.PriorRunNumber-1][\&quot;Parameters\&quot;];&quot;}]}],&quot;type&quot;:&quot;textarea&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:8,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[],&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4}],&quot;key&quot;:&quot;columns7&quot;,&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;}],&quot;collapsed&quot;:true,&quot;keyModified&quot;:true},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Submit This Queue Item&quot;,&quot;theme&quot;:&quot;success&quot;,&quot;tooltip&quot;:&quot;Submits just this one response without changes. The next queue item will be processed via this form.&quot;,&quot;customClass&quot;:&quot;custom-approve-button&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;SubmitThisQueueItem&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;DisableSubmitLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result = !((data.OriginalProvider == data.Provider) &amp; \r\n(data.OriginalModel == data.Model) &amp;\r\n(data.OpenAIPresencePenalty == data.OriginalOpenAIPresencePenalty) &amp;\r\n(data.OpenAIFrequencyPenalty == data.OriginalOpenAIFrequencyPenalty) &amp;\r\n(data.OpenAITemperature == data.OriginalOpenAITemperature) &amp;\r\n(data.OpenAITopP == data.OriginalOpenAITopP) &amp;\r\n(data.OpenAIMaxTokens == data.OriginalOpenAIMaxTokens) &amp;\r\n(data.AzureOpenAIPresencePenalty == data.OriginalAzureOpenAIPresencePenalty) &amp;\r\n(data.AzureOpenAIFrequencyPenalty == data.OriginalAzureOpenAIFrequencyPenalty) &amp;\r\n(data.AzureOpenAITemperature == data.OriginalAzureOpenAITemperature) &amp;\r\n(data.AzureOpenAITopP == data.OriginalAzureOpenAITopP) &amp;\r\n(data.AzureOpenAIMaxTokens == data.OriginalAzureOpenAIMaxTokens) &amp; \r\n(data.VertexAITemperature == data.OriginalVertexAITemperature) &amp;\r\n(data.VertexAIMaxOutputTokens == data.OriginalVertexAIMaxOutputTokens) &amp;\r\n(data.VertexAITopK == data.OriginalVertexAITopK) &amp;\r\n(data.VertexAITopP == data.OriginalVertexAITopP) &amp; \r\n!Boolean(data.ReengineeredPrompt));&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;DisableSubmitAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Disabled&quot;,&quot;value&quot;:&quot;disabled&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}]}],&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:3,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Submit All Queue Items&quot;,&quot;theme&quot;:&quot;info&quot;,&quot;tooltip&quot;:&quot;Submits this response without changes. The reamining queue items for this queue will be processed automatically.&quot;,&quot;customClass&quot;:&quot;custom-approve-button&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;SubmitAllQueueItems&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;DisableSubmitAllLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result = !((data.OriginalProvider == data.Provider) &amp; \r\n(data.OriginalModel == data.Model) &amp;\r\n(data.OpenAIPresencePenalty == data.OriginalOpenAIPresencePenalty) &amp;\r\n(data.OpenAIFrequencyPenalty == data.OriginalOpenAIFrequencyPenalty) &amp;\r\n(data.OpenAITemperature == data.OriginalOpenAITemperature) &amp;\r\n(data.OpenAITopP == data.OriginalOpenAITopP) &amp;\r\n(data.OpenAIMaxTokens == data.OriginalOpenAIMaxTokens) &amp;\r\n(data.AzureOpenAIPresencePenalty == data.OriginalAzureOpenAIPresencePenalty) &amp;\r\n(data.AzureOpenAIFrequencyPenalty == data.OriginalAzureOpenAIFrequencyPenalty) &amp;\r\n(data.AzureOpenAITemperature == data.OriginalAzureOpenAITemperature) &amp;\r\n(data.AzureOpenAITopP == data.OriginalAzureOpenAITopP) &amp;\r\n(data.AzureOpenAIMaxTokens == data.OriginalAzureOpenAIMaxTokens) &amp; \r\n(data.VertexAITemperature == data.OriginalVertexAITemperature) &amp;\r\n(data.VertexAIMaxOutputTokens == data.OriginalVertexAIMaxOutputTokens) &amp;\r\n(data.VertexAITopK == data.OriginalVertexAITopK) &amp;\r\n(data.VertexAITopP == data.OriginalVertexAITopP) &amp; \r\n!Boolean(data.ReengineeredPrompt));&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;DisableSubmitAllAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Disabled&quot;,&quot;value&quot;:&quot;disabled&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}]}],&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:3,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Rerun With New Parameters&quot;,&quot;tooltip&quot;:&quot;Rerun with the reengineered prompt and any changes to the Generative AI parameters.&quot;,&quot;tableView&quot;:true,&quot;key&quot;:&quot;RerunWithNewParameters&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;DisableRerunLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result = ((data.OriginalProvider == data.Provider) &amp; \r\n(data.OriginalModel == data.Model) &amp;\r\n(data.OpenAIPresencePenalty == data.OriginalOpenAIPresencePenalty) &amp;\r\n(data.OpenAIFrequencyPenalty == data.OriginalOpenAIFrequencyPenalty) &amp;\r\n(data.OpenAITemperature == data.OriginalOpenAITemperature) &amp;\r\n(data.OpenAITopP == data.OriginalOpenAITopP) &amp;\r\n(data.OpenAIMaxTokens == data.OriginalOpenAIMaxTokens) &amp;\r\n(data.AzureOpenAIPresencePenalty == data.OriginalAzureOpenAIPresencePenalty) &amp;\r\n(data.AzureOpenAIFrequencyPenalty == data.OriginalAzureOpenAIFrequencyPenalty) &amp;\r\n(data.AzureOpenAITemperature == data.OriginalAzureOpenAITemperature) &amp;\r\n(data.AzureOpenAITopP == data.OriginalAzureOpenAITopP) &amp;\r\n(data.AzureOpenAIMaxTokens == data.OriginalAzureOpenAIMaxTokens) &amp; \r\n(data.VertexAITemperature == data.OriginalVertexAITemperature) &amp;\r\n(data.VertexAIMaxOutputTokens == data.OriginalVertexAIMaxOutputTokens) &amp;\r\n(data.VertexAITopK == data.OriginalVertexAITopK) &amp;\r\n(data.VertexAITopP == data.OriginalVertexAITopP) &amp; \r\n!Boolean(data.ReengineeredPrompt));&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;DisableRerunLogic&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Disabled&quot;,&quot;value&quot;:&quot;disabled&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}]}],&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:3,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0},{&quot;components&quot;:[{&quot;label&quot;:&quot;Cancel&quot;,&quot;theme&quot;:&quot;danger&quot;,&quot;tooltip&quot;:&quot;Submit this response as an error.&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;Cancel&quot;,&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:3,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;columns15&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;HiddenLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;simple&quot;,&quot;simple&quot;:{&quot;show&quot;:true,&quot;when&quot;:&quot;UseQueue&quot;,&quot;eq&quot;:&quot;False&quot;}},&quot;actions&quot;:[{&quot;name&quot;:&quot;HiddenAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Hidden&quot;,&quot;value&quot;:&quot;hidden&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}]}],&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;columns&quot;:[{&quot;components&quot;:[{&quot;label&quot;:&quot;Submit&quot;,&quot;theme&quot;:&quot;success&quot;,&quot;tooltip&quot;:&quot;Submits this one response without changes.&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;SubmitNoQueue&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;DisableSubmitLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result = !((data.OriginalProvider == data.Provider) &amp; \r\n(data.OriginalModel == data.Model) &amp;\r\n(data.OpenAIPresencePenalty == data.OriginalOpenAIPresencePenalty) &amp;\r\n(data.OpenAIFrequencyPenalty == data.OriginalOpenAIFrequencyPenalty) &amp;\r\n(data.OpenAITemperature == data.OriginalOpenAITemperature) &amp;\r\n(data.OpenAITopP == data.OriginalOpenAITopP) &amp;\r\n(data.OpenAIMaxTokens == data.OriginalOpenAIMaxTokens) &amp;\r\n(data.AzureOpenAIPresencePenalty == data.OriginalAzureOpenAIPresencePenalty) &amp;\r\n(data.AzureOpenAIFrequencyPenalty == data.OriginalAzureOpenAIFrequencyPenalty) &amp;\r\n(data.AzureOpenAITemperature == data.OriginalAzureOpenAITemperature) &amp;\r\n(data.AzureOpenAITopP == data.OriginalAzureOpenAITopP) &amp;\r\n(data.AzureOpenAIMaxTokens == data.OriginalAzureOpenAIMaxTokens) &amp; \r\n(data.VertexAITemperature == data.OriginalVertexAITemperature) &amp;\r\n(data.VertexAIMaxOutputTokens == data.OriginalVertexAIMaxOutputTokens) &amp;\r\n(data.VertexAITopK == data.OriginalVertexAITopK) &amp;\r\n(data.VertexAITopP == data.OriginalVertexAITopP) &amp; \r\n!Boolean(data.ReengineeredPrompt));&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;DisableSubmitAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Disabled&quot;,&quot;value&quot;:&quot;disabled&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}]}],&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false},{&quot;label&quot;:&quot;Use Queue&quot;,&quot;hidden&quot;:true,&quot;disabled&quot;:true,&quot;tableView&quot;:true,&quot;key&quot;:&quot;UseQueue&quot;,&quot;type&quot;:&quot;textfield&quot;,&quot;input&quot;:true,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Rerun With New Parameters&quot;,&quot;tooltip&quot;:&quot;Rerun with the reengineered prompt and any changes to the Generative AI parameters.&quot;,&quot;tableView&quot;:true,&quot;key&quot;:&quot;RerunWithNewParameters&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;DisableRerunLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;javascript&quot;,&quot;javascript&quot;:&quot;result = ((data.OriginalProvider == data.Provider) &amp; \r\n(data.OriginalModel == data.Model) &amp;\r\n(data.OpenAIPresencePenalty == data.OriginalOpenAIPresencePenalty) &amp;\r\n(data.OpenAIFrequencyPenalty == data.OriginalOpenAIFrequencyPenalty) &amp;\r\n(data.OpenAITemperature == data.OriginalOpenAITemperature) &amp;\r\n(data.OpenAITopP == data.OriginalOpenAITopP) &amp;\r\n(data.OpenAIMaxTokens == data.OriginalOpenAIMaxTokens) &amp;\r\n(data.AzureOpenAIPresencePenalty == data.OriginalAzureOpenAIPresencePenalty) &amp;\r\n(data.AzureOpenAIFrequencyPenalty == data.OriginalAzureOpenAIFrequencyPenalty) &amp;\r\n(data.AzureOpenAITemperature == data.OriginalAzureOpenAITemperature) &amp;\r\n(data.AzureOpenAITopP == data.OriginalAzureOpenAITopP) &amp;\r\n(data.AzureOpenAIMaxTokens == data.OriginalAzureOpenAIMaxTokens) &amp; \r\n(data.VertexAITemperature == data.OriginalVertexAITemperature) &amp;\r\n(data.VertexAIMaxOutputTokens == data.OriginalVertexAIMaxOutputTokens) &amp;\r\n(data.VertexAITopK == data.OriginalVertexAITopK) &amp;\r\n(data.VertexAITopP == data.OriginalVertexAITopP) &amp; \r\n!Boolean(data.ReengineeredPrompt));&quot;},&quot;actions&quot;:[{&quot;name&quot;:&quot;DisableRerunAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Disabled&quot;,&quot;value&quot;:&quot;disabled&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}],&quot;isRowSelected&quot;:true}],&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0,&quot;size&quot;:&quot;md&quot;},{&quot;components&quot;:[{&quot;label&quot;:&quot;Cancel&quot;,&quot;theme&quot;:&quot;danger&quot;,&quot;tooltip&quot;:&quot;Submit this response as an error.&quot;,&quot;tableView&quot;:false,&quot;key&quot;:&quot;Cancel&quot;,&quot;custom&quot;:&quot;instance.emit('executeDoBlock', instance.component);&quot;,&quot;input&quot;:true,&quot;type&quot;:&quot;button&quot;,&quot;isResetData&quot;:false,&quot;hideOnChildrenHidden&quot;:false}],&quot;size&quot;:&quot;md&quot;,&quot;width&quot;:4,&quot;offset&quot;:0,&quot;push&quot;:0,&quot;pull&quot;:0}],&quot;key&quot;:&quot;columns1&quot;,&quot;logic&quot;:[{&quot;name&quot;:&quot;HiddenLogic&quot;,&quot;trigger&quot;:{&quot;type&quot;:&quot;simple&quot;,&quot;simple&quot;:{&quot;show&quot;:true,&quot;when&quot;:&quot;UseQueue&quot;,&quot;eq&quot;:&quot;True&quot;}},&quot;actions&quot;:[{&quot;name&quot;:&quot;HiddenAction&quot;,&quot;type&quot;:&quot;property&quot;,&quot;property&quot;:{&quot;label&quot;:&quot;Hidden&quot;,&quot;value&quot;:&quot;hidden&quot;,&quot;type&quot;:&quot;boolean&quot;},&quot;state&quot;:true}]}],&quot;type&quot;:&quot;columns&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;label&quot;:&quot;Columns&quot;},{&quot;label&quot;:&quot;HTML&quot;,&quot;attrs&quot;:[{&quot;attr&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;}],&quot;content&quot;:&quot;&lt;p&gt;&lt;/p&gt;\n&lt;style&gt;\ndiv.formio-component-button button.btn\n{\n  padding: 10px;\n  width: 100%;\n}\nbody.light div.formio-component-textfield.formio-component-Property input.form-control\n{\n    background-color: #f2f8fb;\n    font-weight: 500;\n}\ndiv.card-header\n{\n    font-weight: bold;\n}\n&lt;/style&gt;&quot;,&quot;refreshOnChange&quot;:false,&quot;key&quot;:&quot;html&quot;,&quot;type&quot;:&quot;htmlelement&quot;,&quot;input&quot;:false,&quot;tableView&quot;:false,&quot;keyModified&quot;:true}]" FormTheme="{}{&quot;Activities&quot;:[&quot;FORMS&quot;],&quot;Id&quot;:&quot;100120&quot;,&quot;Name&quot;:&quot;Default&quot;,&quot;BaseCss&quot;:&quot;./assets/css/themes/uipath.bootstrap.min.css&quot;,&quot;ImageSrc&quot;:&quot;./assets/themeicons/uipath.png&quot;,&quot;OverrideCssUrl&quot;:&quot;./assets/css/themes/uipath.custom.css&quot;,&quot;UserStyleOverrides&quot;:&quot;&quot;,&quot;Properties&quot;:&quot;&quot;,&quot;IsCustomTheme&quot;:false,&quot;Version&quot;:1,&quot;ThemeVersion&quot;:1}" FormTitle="[FormTitle]" FormWidth="1000" GenerateInputFields="False" sap:VirtualizedContainerService.HintSize="625,142" sap2010:WorkflowViewState.IdRef="FormActivity_5" IsReadOnly="False" MaxColumnsForSchemaGeneration="6" RunDoBlockFirst="False" RunInIsolatedMode="True" SelectedButton="[out_SelectedButton]" StartAsMinimized="False">
+      <ufa:FormActivity.Body>
+        <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:Object)" />
+      </ufa:FormActivity.Body>
+      <ufa:FormActivity.DelayBody>
+        <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:Object)">
+          <Delay DisplayName="Delay - Create Form" Duration="00:00:00.2500000" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Delay_3" />
+        </ActivityAction>
+      </ufa:FormActivity.DelayBody>
+      <ufa:FormActivity.FormFieldsCollection>
+        <InArgument x:TypeArguments="x:String" x:Key="Prompt">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Prompt" />
+        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="Context">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_ContextDictionaryDataTable" />
+        </InArgument>
+        <InOutArgument x:TypeArguments="scg:List(x:String)" x:Key="Provider_dropdown">
+          <VisualBasicReference x:TypeArguments="scg:List(x:String)" ExpressionText="Providers" />
+        </InOutArgument>
+        <InOutArgument x:TypeArguments="x:String" x:Key="Provider">
+          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="in_Provider" />
+        </InOutArgument>
+        <InOutArgument x:TypeArguments="x:String" x:Key="Model">
+          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="in_Model" />
+        </InOutArgument>
+        <InArgument x:TypeArguments="x:Boolean" x:Key="SecondPrompt">
+          <VisualBasicValue x:TypeArguments="x:Boolean" ExpressionText="in_AtLeastSecondPrompt" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="OriginalModel">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Model" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="OriginalProvider">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Provider" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OpenAIPresencePenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAIPresencePenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OpenAIFrequencyPenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAIFrequencyPenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OpenAITemperature">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAITemperature" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="OpenAIMaxTokens">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="OpenAIMaxTokens" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OpenAITopP">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAITopP" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="AzureOpenAIPresencePenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAIPresencePenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="AzureOpenAIFrequencyPenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAIFrequencyPenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="AzureOpenAITemperature">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAITemperature" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="AzureOpenAITopP">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAITopP" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="AzureOpenAIMaxTokens">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="AzureOpenAIMaxTokens" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Response">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Response" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="UseQueue">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_UseQueue.ToString" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalOpenAIPresencePenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAIPresencePenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalOpenAIFrequencyPenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAIFrequencyPenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalAzureOpenAITemperature">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAITemperature" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalAzureOpenAITopP">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAITopP" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="OriginalAzureOpenAIMaxTokens">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="AzureOpenAIMaxTokens" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalOpenAITopP">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAITopP" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalAzureOpenAIPresencePenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAIPresencePenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalAzureOpenAIFrequencyPenalty">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="AzureOpenAIFrequencyPenalty" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalOpenAITemperature">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="OpenAITemperature" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="OriginalOpenAIMaxTokens">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="OpenAIMaxTokens" />
+        </InArgument>
+        <InOutArgument x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))" x:Key="Model_dropdown">
+          <VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, scg:List(x:String))" ExpressionText="providerModelDictionary" />
+        </InOutArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="PriorRunsTable">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="dt_PriorRunsTable" />
+        </InArgument>
+        <InArgument x:TypeArguments="scg:List(x:String)" x:Key="PriorRunNumber_dropdown">
+          <VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="PriorRunNumberList" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="Model_parent">
+          <Literal x:TypeArguments="x:String">Provider</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="PriorRunNumber">
+          <Literal x:TypeArguments="x:String">1</Literal>
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="VertexAITemperature">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="VertexAITemperature" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="VertexAIMaxOutputTokens">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="VertexAIMaxOutputTokens" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="VertexAITopK">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="VertexAITopK" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="VertexAITopP">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="VertexAITopP" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalVertexAITemperature">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="VertexAITemperature" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="OriginalVertexAIMaxOutputTokens">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="VertexAIMaxOutputTokens" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Int32" x:Key="OriginalVertexAITopK">
+          <VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="VertexAITopK" />
+        </InArgument>
+        <InArgument x:TypeArguments="x:Double" x:Key="OriginalVertexAITopP">
+          <VisualBasicValue x:TypeArguments="x:Double" ExpressionText="VertexAITopP" />
+        </InArgument>
+      </ufa:FormActivity.FormFieldsCollection>
+    </ufa:FormActivity>
+  </Sequence>
+</Activity>

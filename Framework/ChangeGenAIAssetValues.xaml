@@ -1,0 +1,264 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ChangeGenAIAssetValues" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_ChangeDefaultPrompt" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_ChangeDefaultParameters" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_Provider" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_CurrentParameterDictionary" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_Prompt" Type="InArgument(x:String)" />
+    <x:Property Name="in_Model" Type="InArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1794,1177</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ChangeGenAIAssetValues_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Core.Activities.Orchestrator</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="46">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Change any assets which contain default parameters to updated value " DisplayName="ChangeGenAIAssetValues" sap:VirtualizedContainerService.HintSize="593,1112" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message - Changing Gen AI Asset Values" sap:VirtualizedContainerService.HintSize="531,92" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="[UiPath.Core.Activities.LogLevel.Info]" Message="[String.Format(in_Config(&quot;LogMessage_ChangeGenAIAssetValues&quot;).ToString,in_ChangeDefaultPrompt.ToString,in_ChangeDefaultParameters.ToString) + Environment.NewLine + in_Config(&quot;logKey&quot;).ToString]" />
+    <If Condition="[in_ChangeDefaultParameters]" DisplayName="If - Changing Default Parameters" sap:VirtualizedContainerService.HintSize="531,395" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Provider-Based Parameter Setting" DisplayName="Switch - GenAI Provider Parameters" Expression="[in_Provider]" sap:VirtualizedContainerService.HintSize="497,213" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+          <Switch.Default>
+            <ui:Comment DisplayName="Comment - Default Parameter Provider" sap:VirtualizedContainerService.HintSize="334,75" sap2010:WorkflowViewState.IdRef="Comment_1" Text="The Default Case is defined in the Config Constants and this should not be reached!" />
+          </Switch.Default>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence x:Key="OpenAI" sap2010:Annotation.AnnotationText="Assign all Open AI GenAI Parameters to be the Task Output values locally and in Orchestrator " DisplayName="OpenAI Make Defualt Parameters" sap:VirtualizedContainerService.HintSize="450,80" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:SetAsset AssetName="GenerativeAIModel" DisplayName="Set Asset - OpenAIModel" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_12" Value="[in_Model]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="GenerativeAIProvider" DisplayName="Set Asset - OpenAIProvider" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_13" Value="[in_Provider]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;OpenAIDefaultMaxTokens&quot;]" DisplayName="Set Asset - OpenAIMaxTokens" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_2" Value="[Cint(in_CurrentParameterDictionary(&quot;OpenAIMaxTokens&quot;))]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;OpenAIDefaultFrequencyPenalty&quot;]" DisplayName="Set Asset - OpenAIFrequencyPenalty" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_3" Value="[in_CurrentParameterDictionary(&quot;OpenAIFrequencyPenalty&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;OpenAIDefaultTopP&quot;]" DisplayName="Set Asset - OpenAITopP" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_6" Value="[in_CurrentParameterDictionary(&quot;OpenAITopP&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;OpenAIDefaultTemperature&quot;]" DisplayName="Set Asset - OpenAITemperature" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_7" Value="[in_CurrentParameterDictionary(&quot;OpenAITemperature&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;OpenAIDefaultPresencePenalty&quot;]" DisplayName="Set Asset - OpenAIPresencePenalty" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_8" Value="[in_CurrentParameterDictionary(&quot;OpenAIPresencePenalty&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+          </Sequence>
+          <Sequence x:Key="AzureOpenAI" sap2010:Annotation.AnnotationText="Assign all Azure Open AI GenAI Parameters to be the Task Output values locally and in Orchestrator " DisplayName="AzureOpenAI Make Defualt Parameters" sap:VirtualizedContainerService.HintSize="450,1324" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:SetAsset AssetName="GenerativeAIModel" DisplayName="Set Asset - AzureOpenAIModel" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_14" Value="[in_Model]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="GenerativeAIProvider" DisplayName="Set Asset - AzureOpenAIProvider" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_15" Value="[in_Provider]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;AzureOpenAIDefaultMaxTokens&quot;]" DisplayName="Set Asset - AzureOpenAIMaxTokens" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_4" Value="[Cint(in_CurrentParameterDictionary(&quot;AzureOpenAIMaxTokens&quot;))]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;AzureOpenAIDefaultFrequencyPenalty&quot;]" DisplayName="Set Asset - AzureOpenAIFrequencyPenalty" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_5" Value="[in_CurrentParameterDictionary(&quot;AzureOpenAIFrequencyPenalty&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;AzureOpenAIDefaultTopP&quot;]" DisplayName="Set Asset - AzureOpenAITopP" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_9" Value="[in_CurrentParameterDictionary(&quot;AzureOpenAITopP&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;AzureOpenAIDefaultTemperature&quot;]" DisplayName="Set Asset - AzureOpenAITemperature" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_10" Value="[in_CurrentParameterDictionary(&quot;AzureOpenAITemperature&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="[&quot;AzureOpenAIDefaultPresencePenalty&quot;]" DisplayName="Set Asset - AzureOpenAIPresencePenalty" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_11" Value="[in_CurrentParameterDictionary(&quot;AzureOpenAIPresencePenalty&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+          </Sequence>
+          <Sequence x:Key="VertexAI" sap2010:Annotation.AnnotationText="Assign all Vertex AI GenAI Parameters to be the Task Output values locally and in Orchestrator " DisplayName="VertexAI Make Defualt Parameters" sap:VirtualizedContainerService.HintSize="450,1151" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:SetAsset AssetName="GenerativeAIModel" DisplayName="Set Asset - VertexAIModel" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_16" Value="[in_Model]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="GenerativeAIProvider" DisplayName="Set Asset - VertexAIProvider" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_17" Value="[in_Provider]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="VertexAIDefaultMaxOutputTokens" DisplayName="Set Asset - VertexAIDefaultMaxOutputTokens" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_18" Value="[Cint(in_CurrentParameterDictionary(&quot;VertexAIMaxOutputTokens&quot;))]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="VertexAIDefaultTemperature" DisplayName="Set Asset - VertexAIDefaultTemperature" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_19" Value="[in_CurrentParameterDictionary(&quot;VertexAITemperature&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="VertexAIDefaultTopK" DisplayName="Set Asset - VertexAIDefaultTopK" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_20" Value="[Cint(in_CurrentParameterDictionary(&quot;VertexAITopK&quot;))]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+            <ui:SetAsset AssetName="VertexAIDefaultTopP" DisplayName="Set Asset - VertexAIDefaultTopP" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="388,133" sap2010:WorkflowViewState.IdRef="SetAsset_21" Value="[in_CurrentParameterDictionary(&quot;VertexAITopP&quot;).ToString]">
+              <ui:SetAsset.TimeoutMS>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:SetAsset.TimeoutMS>
+            </ui:SetAsset>
+          </Sequence>
+        </Switch>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="" sap2010:WorkflowViewState.IdRef="Sequence_7" />
+      </If.Else>
+    </If>
+    <If Condition="[in_ChangeDefaultPrompt]" DisplayName="If - Changing Default Prompt" sap:VirtualizedContainerService.HintSize="531,403" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Then>
+        <Sequence sap2010:Annotation.AnnotationText="Assign Prompt to be the Task Output Reengineered Prompt locally and in Orchestrator" DisplayName="Make Default Prompt" sap:VirtualizedContainerService.HintSize="376,221" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:SetAsset AssetName="[in_Config(&quot;DefaultPromptAssetName&quot;).ToString]" DisplayName="Set Asset - Default Prompt" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" sap:VirtualizedContainerService.HintSize="334,133" sap2010:WorkflowViewState.IdRef="SetAsset_1" Value="[in_Prompt]">
+            <ui:SetAsset.TimeoutMS>
+              <InArgument x:TypeArguments="x:Int32" />
+            </ui:SetAsset.TimeoutMS>
+          </ui:SetAsset>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="" sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Sequence>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>
